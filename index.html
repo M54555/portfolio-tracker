@@ -685,7 +685,7 @@ service cloud.firestore {
       <div class="form-group"><label>Ticker</label><input type="text" id="f-ticker" placeholder="es. XEON.MI" style="text-transform:uppercase" oninput="onTickerInput(this)"/></div>
       <div class="form-group"><label>Categoria</label>
         <select id="f-category">
-          <option>Azioni</option><option>ETF</option><option>Obbligazioni</option>
+          <option>Azioni</option><option>Fondi</option><option>Obbligazioni</option>
           <option>Crypto</option><option>Materie prime</option><option>Liquidità</option><option>Altro</option>
         </select>
       </div>
@@ -722,7 +722,7 @@ service cloud.firestore {
 <script>
 // ═══ CONSTANTS ═══
 const PALETTE=['#c4b5fd','#60a5fa','#4ade80','#fbbf24','#f87171','#34d399','#fb923c','#a78bfa','#38bdf8','#f472b6','#e879f9','#94a3b8'];
-const CAT_COLORS={'Azioni':'#60a5fa','ETF':'#4ade80','Obbligazioni':'#fbbf24','Crypto':'#c4b5fd','Materie prime':'#fb923c','Liquidità':'#34d399','Altro':'#9896a0'};
+const CAT_COLORS={'Azioni':'#60a5fa','Fondi':'#4ade80','Obbligazioni':'#fbbf24','Crypto':'#c4b5fd','Materie prime':'#fb923c','Liquidità':'#34d399','Altro':'#9896a0'};
 const SYMBOLS={EUR:'€',USD:'$',GBP:'£',CHF:'CHF '};
 
 // ═══ STATE ═══
@@ -747,11 +747,11 @@ function defaultState() {
   return {
     currency:'EUR', currentPfId:i1,
     portfolios:[
-      {id:i1,name:'Crescita a lungo termine',desc:'Azioni globali e ETF',color:'#c4b5fd',
+      {id:i1,name:'Crescita a lungo termine',desc:'Azioni globali e Fondi',color:'#c4b5fd',
         assets:[
           {id:uid(),name:'Apple Inc.',ticker:'AAPL',category:'Azioni',qty:10,avgPrice:145,price:189},
-          {id:uid(),name:'Vanguard FTSE All-World',ticker:'VWCE',category:'ETF',qty:25,avgPrice:90,price:112},
-          {id:uid(),name:'iShares Core S&P 500',ticker:'CSPX',category:'ETF',qty:15,avgPrice:380,price:460},
+          {id:uid(),name:'Vanguard FTSE All-World',ticker:'VWCE',category:'Fondi',qty:25,avgPrice:90,price:112},
+          {id:uid(),name:'iShares Core S&P 500',ticker:'CSPX',category:'Fondi',qty:15,avgPrice:380,price:460},
         ]},
       {id:i2,name:'Crypto & Tech',desc:'Alta volatilità',color:'#4ade80',
         assets:[
@@ -1375,6 +1375,31 @@ function exportCSV(){
   const a=document.createElement('a');a.href=url;a.download=`${pf.name.replace(/[^a-z0-9]/gi,'-')}.csv`;a.click();
   URL.revokeObjectURL(url);
 }
+
+
+// ═══ AUTO-LOGOUT dopo 1 minuto di inattivita ═══
+var _inactivityTimer = null;
+var INACTIVITY_MS = 60 * 1000; // 1 minuto
+
+function resetInactivityTimer(){
+  clearTimeout(_inactivityTimer);
+  _inactivityTimer = setTimeout(function(){
+    if(currentUser){
+      showToast('Sessione scaduta per inattivita. Accedi di nuovo.', 'error');
+      setTimeout(function(){
+        window._fbLogout && window._fbLogout();
+      }, 1500);
+    }
+  }, INACTIVITY_MS);
+}
+
+// Ascolta tutti gli eventi che indicano attivita dell'utente
+['click','mousemove','keydown','touchstart','scroll','pointerdown'].forEach(function(evt){
+  document.addEventListener(evt, resetInactivityTimer, {passive:true});
+});
+
+// Avvia il timer appena la pagina e pronta
+document.addEventListener('DOMContentLoaded', resetInactivityTimer);
 
 // ═══ INIT ═══
 // Se Firebase non è configurato, avvia in modalità locale senza login
