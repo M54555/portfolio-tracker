@@ -346,134 +346,21 @@ footer{text-align:center;padding:1.2rem;font-size:0.73rem;color:var(--text3);bor
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
 
-/* ── MOBILE PORTRAIT (<=640px, es. iPhone 6.1") ── */
 @media(max-width:640px){
-
-  /* Header compatto */
-  header{
-    padding:0 0.75rem;
-    gap:0.35rem;
-    height:52px;
-  }
-  .logo{font-size:0.95rem;}
-  .pf-switcher{max-width:130px;padding:0.18rem 0.5rem 0.18rem 0.38rem;}
-  .pf-name{font-size:0.78rem;}
-
-  /* Nasconde label "Prezzi" nel pulsante refresh, mostra solo icona */
-  #refresh-label{display:none;}
-  #btn-refresh{padding:0.4rem 0.5rem;}
-
-  /* Sync badge: solo pallino colorato, niente testo */
-  .sync-badge{padding:0.18rem 0.4rem;}
-  .sync-badge span{display:none;}
-
-  /* Avatar piu piccolo */
-  .user-avatar{width:26px;height:26px;font-size:0.72rem;}
-
-  /* Bottone aggiungi piu compatto */
-  .btn-accent{padding:0.38rem 0.65rem;font-size:0.76rem;}
-
-  /* Nav: testo piu piccolo, padding ridotto */
-  nav{padding:0 0;}
-  .nav-tab{font-size:0.72rem;padding:0.7rem 0.65rem;}
-
-  /* Main: meno padding */
-  main{padding:0.75rem;}
-
-  /* KPI cards: 2 colonne, valori piu piccoli */
-  .grid-4{grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.85rem;}
-  .card{padding:0.9rem;}
-  .card-label{font-size:0.65rem;}
-  .card-value{font-size:1.1rem;}
-  .card-sub{font-size:0.7rem;}
-
-  /* Grid 2 colonne -> 1 colonna su mobile */
-  .grid-2{grid-template-columns:1fr;gap:0.65rem;}
-  .grid-3{grid-template-columns:1fr;gap:0.65rem;}
-
-  /* Grafici: altezza ridotta per lasciare spazio */
-  .chart-wrap[style*="height:205px"]{height:170px!important;}
-  .chart-wrap[style*="height:210px"]{height:170px!important;}
-  .chart-wrap[style*="height:180px"]{height:155px!important;}
-  .chart-wrap[style*="height:185px"]{height:155px!important;}
-  .chart-wrap[style*="height:250px"]{height:200px!important;}
-  .chart-wrap[style*="height:270px"]{height:200px!important;}
-  .chart-wrap[style*="height:205px"]{height:170px!important;}
-
-  /* Nel dashboard: grafico torta + legenda in colonna */
-  #page-dashboard .card > div[style*="display:flex"]{
-    flex-direction:column;
-    align-items:center;
-  }
-  #page-dashboard .chart-wrap[style*="width:180px"]{
-    width:160px!important;
-    height:160px!important;
-  }
-  #doughnut-legend{min-width:unset;width:100%;}
-
-  /* Overview pie */
-  #page-overview .chart-wrap[style*="width:185px"]{
-    width:160px!important;
-    height:160px!important;
-  }
-  #ov-pie-legend{min-width:unset;width:100%;}
-
-  /* Portfolio cards: azioni sempre visibili */
-  .pf-card-actions{opacity:1;}
-  .pf-card{padding:1rem;}
-  .pf-card-name{font-size:0.92rem;}
-
-  /* Form: 1 colonna */
+  header{padding:0 0.85rem;gap:0.45rem;}
+  nav{padding:0 0.85rem;}
+  main{padding:0.85rem;}
+  .grid-4{grid-template-columns:1fr 1fr;}
   .form-row{grid-template-columns:1fr;}
-  .modal{padding:1rem;max-height:95vh;}
-  .modal-title{font-size:1rem;margin-bottom:0.9rem;}
-
-  /* Tabella: font piu piccolo e padding ridotto */
-  table{font-size:0.74rem;}
-  th{font-size:0.62rem;padding:0.4rem 0.45rem;}
-  td{padding:0.5rem 0.45rem;}
-  .td-mono{font-size:0.72rem;}
-  .asset-name{font-size:0.78rem;}
-  .ticker{font-size:0.68rem;}
-
-  /* Nasconde colonne meno importanti in portafoglio su mobile */
-  #portfolio-tbody tr td:nth-child(4),  /* Prezzo medio */
-  #portfolio-tbody tr td:nth-child(5),  /* Prezzo attuale */
-  thead tr th:nth-child(4),
-  thead tr th:nth-child(5){
-    display:none;
-  }
-
-  /* Sezione header */
-  .section-header{margin-bottom:0.65rem;}
-  .section-title{font-size:0.95rem;}
-
-  /* Setup banner */
-  #setup-banner{padding:0.5rem 0.75rem;font-size:0.75rem;flex-wrap:wrap;}
-
-  /* Footer */
-  footer{font-size:0.65rem;padding:0.85rem;}
-
-  /* Toast piu piccolo */
-  .toast{font-size:0.75rem;padding:0.5rem 0.85rem;max-width:90vw;white-space:normal;text-align:center;}
-
-  /* Overview portfolio grid */
-  #ov-pf-grid{grid-template-columns:1fr!important;}
+  .logo{font-size:1rem;}
+  .card-value{font-size:1.2rem;}
+  .modal{padding:1.1rem;}
+  .pf-card-actions{opacity:1;}
+  .pf-switcher{max-width:150px;}
+  .sync-badge span{display:none;}
+  #setup-banner{padding:0.55rem 0.85rem;}
 }
-
-/* ── SMARTPHONE MOLTO PICCOLI (<=390px) ── */
-@media(max-width:390px){
-  .grid-4{grid-template-columns:1fr 1fr;gap:0.5rem;}
-  .nav-tab{font-size:0.68rem;padding:0.65rem 0.5rem;}
-  .card-value{font-size:1rem;}
-  header{height:50px;}
-}
-
-/* ── SMARTPHONE PICCOLI (<=340px) ── */
-@media(max-width:340px){
-  .grid-4{grid-template-columns:1fr;}
-  .nav-tab{font-size:0.65rem;padding:0.6rem 0.4rem;}
-}
+@media(max-width:380px){.grid-4{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -500,7 +387,13 @@ footer{text-align:center;padding:1.2rem;font-size:0.73rem;color:var(--text3);bor
 
 <!-- HEADER -->
 <header>
-  <div class="logo">Portfolio<span>Tracker</span></div>
+  <div class="logo-wrap" style="position:relative;flex-shrink:0">
+    <div class="logo" onclick="toggleLogoDropdown(event)" style="cursor:pointer;display:flex;align-items:center;gap:0.3rem;padding:0.25rem 0.4rem;border-radius:var(--radius-sm);transition:background 0.15s" onmouseenter="this.style.background='var(--surface)'" onmouseleave="this.style.background='transparent'">
+      Portfolio<span>Tracker</span>
+      <span style="font-size:0.55rem;color:var(--text3);margin-left:1px">▼</span>
+    </div>
+    <div id="logo-dropdown" style="display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:0.4rem;z-index:400;box-shadow:0 8px 24px rgba(0,0,0,0.35);min-width:220px"></div>
+  </div>
 
   <div class="pf-switcher" id="pf-switcher" onclick="toggleDropdown(event)">
     <div class="pf-dot" id="hdr-dot"></div>
@@ -522,8 +415,8 @@ footer{text-align:center;padding:1.2rem;font-size:0.73rem;color:var(--text3);bor
 
 <!-- NAV -->
 <nav>
-  <button class="nav-tab" onclick="showPage('overview')">⊞ Riepilogo</button>
-  <button class="nav-tab active" onclick="showPage('dashboard')">Dashboard</button>
+  <button class="nav-tab active" onclick="showPage('overview')">⊞ Riepilogo</button>
+  <button class="nav-tab" onclick="showPage('dashboard')">Dashboard</button>
   <button class="nav-tab" onclick="showPage('portafoglio')">Portafoglio</button>
   <button class="nav-tab" onclick="showPage('allocazione')">Allocazione</button>
   <button class="nav-tab" onclick="showPage('rendimento')">Rendimento</button>
@@ -533,7 +426,7 @@ footer{text-align:center;padding:1.2rem;font-size:0.73rem;color:var(--text3);bor
 <main>
 
   <!-- OVERVIEW -->
-  <div class="page" id="page-overview">
+  <div class="page active" id="page-overview">
     <div class="grid-4" id="ov-kpi"></div>
     <div class="grid-2" style="margin-bottom:1.25rem">
       <div class="card">
@@ -556,7 +449,7 @@ footer{text-align:center;padding:1.2rem;font-size:0.73rem;color:var(--text3);bor
   </div>
 
   <!-- DASHBOARD -->
-  <div class="page active" id="page-dashboard">
+  <div class="page" id="page-dashboard">
     <div class="grid-4" id="kpi-cards"></div>
     <div class="grid-2">
       <div class="card">
@@ -747,7 +640,7 @@ const SYMBOLS={EUR:'€',USD:'$',GBP:'£',CHF:'CHF '};
 
 // ═══ STATE ═══
 window.S = defaultState();
-window.currentPage = 'dashboard';
+window.currentPage = 'overview';
 window._syncStatus = 'offline';
 window._lastSaveTs = 0;
 
@@ -937,7 +830,7 @@ async function refreshAllPrices(){
   }
 
   saveState();
-  renderPage(window.currentPage);
+  renderPage(window.currentPage || 'overview');
   if(icon) icon.className = '';
   if(lbl)  lbl.textContent = 'Prezzi';
   if(btn)  btn.disabled = false;
@@ -997,7 +890,7 @@ window.onUserReady = function(user) {
   window._syncStatus='synced';
   updateSyncBadge();
   updateSwitcherHeader();
-  renderPage(window.currentPage);
+  renderPage(window.currentPage || 'overview');
 };
 
 window.onUserSignedOut = function() {
@@ -1089,8 +982,38 @@ function updateSwitcherHeader() {
   document.getElementById('hdr-name').textContent=pf.name;
 }
 
+function toggleLogoDropdown(e){
+  e.stopPropagation();
+  const dd = document.getElementById('logo-dropdown');
+  const isOpen = dd.style.display === 'block';
+  // Chiudi prima tutti i dropdown aperti
+  document.getElementById('pf-dropdown').classList.remove('open');
+  dd.style.display = isOpen ? 'none' : 'block';
+  if(!isOpen) buildLogoDropdown();
+}
+
+function buildLogoDropdown(){
+  const dd = document.getElementById('logo-dropdown');
+  dd.innerHTML = window.S.portfolios.map(p => `
+    <div onclick="switchPf('${p.id}');closeLogo()" style="display:flex;align-items:center;gap:0.55rem;padding:0.5rem 0.6rem;border-radius:var(--radius-sm);cursor:pointer;font-size:0.84rem;font-weight:500;color:${p.id===currentPfId?'var(--accent)':'var(--text)'};background:${p.id===currentPfId?'var(--accent-dim)':'transparent'};transition:background 0.1s" onmouseenter="this.style.background='var(--surface2)'" onmouseleave="this.style.background='${p.id===currentPfId?'var(--accent-dim)':'transparent'}'">
+      <div style="width:9px;height:9px;border-radius:50%;background:${p.color};flex-shrink:0"></div>
+      <span style="flex:1">${p.name}</span>
+      <span style="font-size:0.72rem;color:var(--text3);font-family:var(--font-mono)">${fmt(pfVal(p))}</span>
+    </div>`).join('') + `
+    <div style="height:1px;background:var(--border);margin:0.3rem 0"></div>
+    <div onclick="closeLogo();openNewPortfolioModal()" style="display:flex;align-items:center;gap:0.55rem;padding:0.45rem 0.6rem;border-radius:var(--radius-sm);cursor:pointer;font-size:0.81rem;color:var(--text2);transition:background 0.1s" onmouseenter="this.style.background='var(--surface2)'" onmouseleave="this.style.background='transparent'">＋ Nuovo portafoglio</div>
+    <div onclick="closeLogo();showPage('overview')" style="display:flex;align-items:center;gap:0.55rem;padding:0.45rem 0.6rem;border-radius:var(--radius-sm);cursor:pointer;font-size:0.81rem;color:var(--text2);transition:background 0.1s" onmouseenter="this.style.background='var(--surface2)'" onmouseleave="this.style.background='transparent'">⊞ Riepilogo globale</div>
+  `;
+}
+
+function closeLogo(){
+  document.getElementById('logo-dropdown').style.display = 'none';
+}
+
 function toggleDropdown(e){
   e.stopPropagation();
+  // Chiudi logo dropdown se aperto
+  document.getElementById('logo-dropdown').style.display = 'none';
   const dd=document.getElementById('pf-dropdown');
   dd.classList.toggle('open');
   if(dd.classList.contains('open'))buildDropdown();
@@ -1110,12 +1033,12 @@ function buildDropdown(){
   `;
 }
 
-function closeDropdown(){document.getElementById('pf-dropdown').classList.remove('open');}
+function closeDropdown(){document.getElementById('pf-dropdown').classList.remove('open');document.getElementById('logo-dropdown').style.display='none';}
 document.addEventListener('click',closeDropdown);
 
 function switchPf(id){
   currentPfId=id;window.S.currentPfId=id;saveState();
-  closeDropdown();updateSwitcherHeader();renderPage(window.currentPage);
+  closeDropdown();updateSwitcherHeader();renderPage(window.currentPage || 'overview');
 }
 
 // ═══ OVERVIEW ═══
@@ -1266,7 +1189,7 @@ function savePortfolioSettings(){
   const pf=currentPf(),name=document.getElementById('s-pf-name').value.trim();
   if(!name){alert('Inserisci un nome.');return;}
   pf.name=name;pf.desc=document.getElementById('s-pf-desc').value.trim();pf.color=selectedColor;
-  saveState();updateSwitcherHeader();renderPage(window.currentPage);showToast('Impostazioni salvate','success');
+  saveState();updateSwitcherHeader();renderPage(window.currentPage || 'overview');showToast('Impostazioni salvate','success');
 }
 
 function deleteCurrentPortfolio(){
@@ -1279,17 +1202,17 @@ function deleteCurrentPortfolio(){
 
 function resetPortfolio(){
   if(!confirm('Svuotare tutti gli asset di questo portafoglio?'))return;
-  currentPf().assets=[];saveState();renderPage(window.currentPage);
+  currentPf().assets=[];saveState();renderPage(window.currentPage || 'overview');
 }
 
 function updatePrice(id){
   const input=document.getElementById('price-'+id);if(!input)return;
   const val=parseFloat(input.value);if(isNaN(val)||val<0)return;
   const a=pfAssets().find(x=>x.id===id);
-  if(a){a.price=val;saveState();renderPage(window.currentPage);showToast('Prezzo aggiornato','success');}
+  if(a){a.price=val;saveState();renderPage(window.currentPage || 'overview');showToast('Prezzo aggiornato','success');}
 }
 
-function setCurrency(c){window.S.currency=c;saveState();renderPage(window.currentPage);}
+function setCurrency(c){window.S.currency=c;saveState();renderPage(window.currentPage || 'overview');}
 
 // ═══ COLOR PICKER ═══
 function buildColorPicker(cid,getVal,setVal){
@@ -1359,12 +1282,12 @@ function saveAsset(){
   const pf=currentPf();
   if(editingAssetId){const a=pf.assets.find(x=>x.id===editingAssetId);if(a)Object.assign(a,{name,ticker:ticker||name.slice(0,5).toUpperCase(),category,qty,avgPrice,price,priceAuto:false});}
   else pf.assets.push({id:uid(),name,ticker:ticker||name.slice(0,5).toUpperCase(),category,qty,avgPrice,price,priceAuto:false});
-  saveState();closeModal('modal-asset');renderPage(window.currentPage);showToast('Asset salvato','success');
+  saveState();closeModal('modal-asset');renderPage(window.currentPage || 'overview');showToast('Asset salvato','success');
 }
 function deleteAsset(id){
   if(!confirm('Eliminare questo asset?'))return;
   const pf=currentPf();pf.assets=pf.assets.filter(a=>a.id!==id);
-  saveState();renderPage(window.currentPage);
+  saveState();renderPage(window.currentPage || 'overview');
 }
 
 function closeModal(id){
@@ -1398,7 +1321,7 @@ if(!FB_CONFIGURED) {
   updateSyncBadge();
   currentPfId=window.S.currentPfId||window.S.portfolios[0]?.id;
   updateSwitcherHeader();
-  renderPage('dashboard');
+  renderPage('overview');
 }
 // Se Firebase è configurato, onAuthStateChanged gestirà tutto
 </script>
