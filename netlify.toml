@@ -1,3 +1,8 @@
 [build]
   functions = "netlify/functions"
   publish = "."
+
+[[redirects]]
+  from = "/api/price"
+  to = "/.netlify/functions/price"
+  status = 200
