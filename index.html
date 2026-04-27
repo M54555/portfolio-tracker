@@ -234,6 +234,15 @@ header{
 .btn-sm{padding:0.28rem 0.6rem;font-size:0.74rem;}
 .spin{display:inline-block;animation:_sp 0.8s linear infinite;}
 @keyframes _sp{to{transform:rotate(360deg);}}
+.values-hidden .card-value,
+.values-hidden .card-sub,
+.values-hidden .td-mono,
+.values-hidden .alloc-val,
+.values-hidden .pf-option-val,
+.values-hidden .pf-card-row span[style*="font-mono"]{
+  filter:blur(7px);pointer-events:none;user-select:none;
+}
+#btn-hide.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent);}
 .drag-handle{cursor:grab;color:var(--text3);padding:0 4px;font-size:1rem;user-select:none;-webkit-user-select:none;}
 .drag-handle:active{cursor:grabbing;}
 tr.dragging{opacity:0.35;}
@@ -367,6 +376,10 @@ footer{text-align:center;padding:1.2rem;font-size:0.73rem;color:var(--text3);bor
   .pf-switcher{max-width:150px;}
   .sync-badge span{display:none;}
   #setup-banner{padding:0.55rem 0.85rem;}
+  #refresh-label{display:none;}
+  #btn-refresh{padding:0.4rem 0.5rem;}
+  #hide-label{display:none;}
+  #btn-hide{padding:0.4rem 0.5rem;}
 }
 @media(max-width:380px){.grid-4{grid-template-columns:1fr;}}
 </style>
@@ -414,6 +427,10 @@ footer{text-align:center;padding:1.2rem;font-size:0.73rem;color:var(--text3);bor
     <button class="btn" id="btn-refresh" onclick="refreshAllPrices()" style="display:flex;align-items:center;gap:5px;font-size:0.78rem" title="Aggiorna prezzi da Yahoo Finance">
       <span id="refresh-icon" style="font-size:1rem;line-height:1">&#8635;</span>
       <span id="refresh-label">Prezzi</span>
+    </button>
+    <button class="btn" id="btn-hide" onclick="toggleHideValues()" style="display:flex;align-items:center;gap:5px;font-size:0.78rem" title="Nascondi/mostra valori">
+      <span id="hide-icon">&#128065;</span>
+      <span id="hide-label">Valori</span>
     </button>
     <div class="sync-badge offline" id="sync-badge"><span>Offline</span></div>
     <div class="user-avatar" id="user-avatar" onclick="handleAvatarClick()" title="Account">?</div>
@@ -1112,10 +1129,10 @@ function renderDashboard(){
     document.getElementById('top-tbody').innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--text3);padding:2rem">Nessun asset. Clicca "+ Aggiungi".</td></tr>';
     return;
   }
-  const seed=tc||1000,days=Array.from({length:31},(_,i)=>i);
-  const lbls=days.map(d=>{const dt=new Date();dt.setDate(dt.getDate()-30+d);return dt.toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit'});});
-  const ld=days.map((d,i)=>{const t=i/30,n=Math.sin(d*0.8)*0.04+Math.cos(d*1.3)*0.03;return+(seed+(tv-seed)*t+seed*n).toFixed(2);});
-  ld[30]=tv;
+  const seed=tc||1000,days=Array.from({length:366},(_,i)=>i);
+  const lbls=days.map(d=>{const dt=new Date();dt.setDate(dt.getDate()-365+d);return dt.toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit'});});
+  const ld=days.map((d,i)=>{const t=i/365,n=Math.sin(d*0.22)*0.05+Math.cos(d*0.37)*0.04+Math.sin(d*0.08)*0.03;return+(seed+(tv-seed)*t+seed*n).toFixed(2);});
+  ld[365]=tv;
   makeChart('chartLine',{type:'line',data:{labels:lbls,datasets:[{data:ld,borderColor:pf.color,backgroundColor:pf.color+'14',borderWidth:2,pointRadius:0,fill:true,tension:0.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>fmt(v.raw)}}},scales:{x:{ticks:{maxTicksLimit:6,font:{size:11}},grid:{display:false},border:{display:false}},y:{ticks:{callback:v=>sym()+v.toLocaleString('it-IT'),font:{size:11}},grid:{color:'rgba(255,255,255,0.04)'},border:{display:false}}}}});
   const cats={};
   assets.forEach(a=>{cats[a.category]=(cats[a.category]||0)+a.qty*a.price;});
@@ -1130,6 +1147,26 @@ function renderDashboard(){
 }
 
 // ═══ PORTAFOGLIO TABLE ═══
+
+// nasconde/mostra valori monetari
+var _valuesHidden=false;
+function toggleHideValues(){
+  _valuesHidden=!_valuesHidden;
+  document.body.classList.toggle('values-hidden',_valuesHidden);
+  var btn=document.getElementById('btn-hide');
+  var icon=document.getElementById('hide-icon');
+  var lbl=document.getElementById('hide-label');
+  if(_valuesHidden){
+    if(btn)btn.classList.add('active');
+    if(icon)icon.textContent='\uD83D\uDE48';
+    if(lbl)lbl.textContent='Mostra';
+  } else {
+    if(btn)btn.classList.remove('active');
+    if(icon)icon.textContent='\uD83D\uDC41';
+    if(lbl)lbl.textContent='Valori';
+  }
+}
+
 var _sortCol=null, _sortDir=1;
 
 function sortAssets(col){
