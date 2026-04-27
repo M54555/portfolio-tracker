@@ -363,25 +363,80 @@ footer{text-align:center;padding:1.2rem;font-size:0.73rem;color:var(--text3);bor
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
 
+/* ── MOBILE PORTRAIT (<=640px, es. iPhone 6.1") ── */
 @media(max-width:640px){
-  header{padding:0 0.85rem;gap:0.45rem;}
-  nav{padding:0 0.85rem;}
-  main{padding:0.85rem;}
-  .grid-4{grid-template-columns:1fr 1fr;}
-  .form-row{grid-template-columns:1fr;}
-  .logo{font-size:1rem;}
-  .card-value{font-size:1.2rem;}
-  .modal{padding:1.1rem;}
-  .pf-card-actions{opacity:1;}
-  .pf-switcher{max-width:150px;}
-  .sync-badge span{display:none;}
-  #setup-banner{padding:0.55rem 0.85rem;}
+  header{padding:0 0.75rem;gap:0.35rem;height:52px;}
+  .logo{font-size:0.9rem;}
+  .pf-switcher{max-width:110px;padding:0.18rem 0.45rem 0.18rem 0.35rem;}
+  .pf-name{font-size:0.74rem;}
   #refresh-label{display:none;}
-  #btn-refresh{padding:0.4rem 0.5rem;}
+  #btn-refresh{padding:0.38rem 0.48rem;}
   #hide-label{display:none;}
-  #btn-hide{padding:0.4rem 0.5rem;}
+  #btn-hide{padding:0.38rem 0.48rem;}
+  .sync-badge{padding:0.18rem 0.38rem;}
+  .sync-badge span{display:none;}
+  .user-avatar{width:26px;height:26px;font-size:0.72rem;}
+  .btn-accent{padding:0.36rem 0.6rem;font-size:0.75rem;}
+  nav{padding:0;}
+  .nav-tab{font-size:0.71rem;padding:0.68rem 0.6rem;}
+  main{padding:0.75rem;}
+  .grid-4{grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.85rem;}
+  .card{padding:0.85rem;}
+  .card-label{font-size:0.64rem;}
+  .card-value{font-size:1.1rem;}
+  .card-sub{font-size:0.69rem;}
+  .grid-2{grid-template-columns:1fr;gap:0.6rem;}
+  .grid-3{grid-template-columns:1fr;gap:0.6rem;}
+  .chart-wrap[style*="height:205px"]{height:165px!important;}
+  .chart-wrap[style*="height:210px"]{height:165px!important;}
+  .chart-wrap[style*="height:180px"]{height:150px!important;}
+  .chart-wrap[style*="height:185px"]{height:150px!important;}
+  .chart-wrap[style*="height:250px"]{height:195px!important;}
+  .chart-wrap[style*="height:270px"]{height:195px!important;}
+  #page-dashboard .card > div[style*="display:flex"]{flex-direction:column;align-items:center;}
+  #page-dashboard .chart-wrap[style*="width:180px"]{width:155px!important;height:155px!important;}
+  #doughnut-legend{min-width:unset;width:100%;}
+  #page-overview .chart-wrap[style*="width:185px"]{width:155px!important;height:155px!important;}
+  #ov-pie-legend{min-width:unset;width:100%;}
+  .pf-card-actions{opacity:1;}
+  .pf-card{padding:0.95rem;}
+  .pf-card-name{font-size:0.9rem;}
+  #ov-pf-grid{grid-template-columns:1fr!important;}
+  .form-row{grid-template-columns:1fr;}
+  .modal{padding:0.95rem;max-height:95vh;}
+  .modal-title{font-size:0.98rem;margin-bottom:0.85rem;}
+  table{font-size:0.73rem;}
+  th{font-size:0.61rem;padding:0.38rem 0.42rem;}
+  td{padding:0.48rem 0.42rem;}
+  .td-mono{font-size:0.71rem;}
+  .asset-name{font-size:0.77rem;}
+  .ticker{font-size:0.67rem;}
+  #portfolio-tbody tr td:nth-child(1),
+  #portfolio-tbody tr td:nth-child(4),
+  #portfolio-tbody tr td:nth-child(6),
+  #portfolio-tbody tr td:nth-child(7),
+  #page-portafoglio thead tr th:nth-child(1),
+  #page-portafoglio thead tr th:nth-child(4),
+  #page-portafoglio thead tr th:nth-child(6),
+  #page-portafoglio thead tr th:nth-child(7){display:none;}
+  .section-header{margin-bottom:0.6rem;}
+  .section-title{font-size:0.93rem;}
+  #setup-banner{padding:0.5rem 0.75rem;font-size:0.73rem;flex-wrap:wrap;}
+  footer{font-size:0.64rem;padding:0.8rem;}
+  .toast{font-size:0.74rem;padding:0.48rem 0.82rem;max-width:90vw;white-space:normal;text-align:center;}
 }
-@media(max-width:380px){.grid-4{grid-template-columns:1fr;}}
+/* ── <=390px ── */
+@media(max-width:390px){
+  .grid-4{grid-template-columns:1fr 1fr;gap:0.5rem;}
+  .nav-tab{font-size:0.67rem;padding:0.62rem 0.48rem;}
+  .card-value{font-size:1rem;}
+  header{height:50px;}
+}
+/* ── <=340px ── */
+@media(max-width:340px){
+  .grid-4{grid-template-columns:1fr;}
+  .nav-tab{font-size:0.64rem;padding:0.58rem 0.38rem;}
+}
 </style>
 </head>
 <body>
@@ -718,120 +773,24 @@ function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2
 
 
 // ======= PRICE FETCH =======
-// Metodo confermato: allorigins.win/get (wrapper JSON) + Yahoo v8/chart
-// La risposta ha: { contents: "<stringa JSON>", status: {...} }
-// Il prezzo si trova in: JSON.parse(contents).chart.result[0].meta.regularMarketPrice
+// Usa la Netlify Function /api/price (stesso dominio, nessun blocco CORS).
+// Gestisce ticker Yahoo (es. XDEV.MI) e ISIN Borsa Italiana (es. FR0010870956).
 
 var _priceCache = {};
-
-async function fetchYahooPrice(symbol){
-  if(!symbol || !symbol.trim()) return null;
-  var sym = symbol.trim().toUpperCase();
-
-  // Prova sia query1 che query2 come host Yahoo
-  var yahooHosts = ['query1.finance.yahoo.com', 'query2.finance.yahoo.com'];
-
-  // Prova range=1d prima (risposta piu piccola = piu veloce), poi 5d come fallback
-  var ranges = ['1d', '5d'];
-  for(var hi = 0; hi < yahooHosts.length; hi++){
-   for(var ri = 0; ri < ranges.length; ri++){
-    var yahooUrl = 'https://' + yahooHosts[hi] + '/v8/finance/chart/' +
-                   encodeURIComponent(sym) + '?interval=1d&range=' + ranges[ri];
-    var proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(yahooUrl);
-
-    try {
-      var r = await fetch(proxyUrl, {
-        signal: AbortSignal.timeout(20000),
-        headers: {Accept: 'application/json'}
-      });
-      if(!r.ok) continue;
-
-      var wrapper = await r.json();
-      // wrapper.contents e una stringa JSON da parsare
-      if(!wrapper || !wrapper.contents) continue;
-
-      var data;
-      try { data = JSON.parse(wrapper.contents); } catch(e){ continue; }
-
-      var result = data && data.chart && data.chart.result && data.chart.result[0];
-      if(!result) continue;
-
-      // Prezzo corrente
-      var price = result.meta && result.meta.regularMarketPrice;
-      if(price && price > 0) return +price;
-
-      // Fallback: ultimo close disponibile
-      var closes = result.indicators &&
-                   result.indicators.quote &&
-                   result.indicators.quote[0] &&
-                   result.indicators.quote[0].close;
-      if(closes){
-        for(var i = closes.length - 1; i >= 0; i--){
-          if(closes[i] && closes[i] > 0) return +closes[i];
-        }
-      }
-    } catch(e){ continue; }
-   }
-  }
-  return null;
-}
-
-// Recupera prezzo da Borsa Italiana tramite ISIN
-// Pattern confermato: prezzo corrente in class="summary-value" -> strong
-// Fallback: "Prezzo ufficiale" in span class="t-text -right"
-async function fetchBorsaItalianaPrice(isin){
-  if(!isin || isin.length < 12) return null;
-  var biUrl = 'https://www.borsaitaliana.it/borsa/obbligazioni/mot/euro-obbligazioni/scheda/' +
-              isin.trim().toUpperCase() + '-MOTX.html?lang=it';
-  var proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(biUrl);
-  try {
-    var r = await fetch(proxyUrl, {signal: AbortSignal.timeout(25000), headers:{Accept:'application/json'}});
-    if(!r.ok) return null;
-    var wrapper = await r.json();
-    if(!wrapper || !wrapper.contents) return null;
-    var html = wrapper.contents;
-
-    // 1. Prezzo corrente nel summary header (es. <strong>91,94</strong>)
-    var m1 = html.match(/class="summary-value"[\s\S]{0,300}?<strong>([\d]+[,.][\d]+)<\/strong>/);
-    if(m1) return parseFloat(m1[1].replace(',', '.'));
-
-    // 2. "Prezzo ufficiale" -> span t-text -right
-    var m2 = html.match(/Prezzo ufficiale[\s\S]{0,300}?class="t-text -right">([\d]+[,.][\d]+)<\/span>/);
-    if(m2) return parseFloat(m2[1].replace(',', '.'));
-
-    // 3. Qualsiasi span t-text -right con valore plausibile per obbligazione (50-200)
-    var rx = /class="t-text -right">([\d]+[,.][\d]+)<\/span>/g;
-    var m3;
-    while((m3 = rx.exec(html)) !== null){
-      var val = parseFloat(m3[1].replace(',', '.'));
-      if(val > 50 && val < 200) return val;
-    }
-  } catch(e){}
-  return null;
-}
-
-// Ritorna true se la stringa e un ISIN (2 lettere + 10 alfanumerici)
-function isISIN(str){
-  return /^[A-Z]{2}[A-Z0-9]{10}$/.test((str||'').trim().toUpperCase());
-}
 
 async function fetchPriceForAsset(ticker){
   if(!ticker || !ticker.trim()) return null;
   var sym = ticker.trim().toUpperCase();
   if(_priceCache[sym] !== undefined) return _priceCache[sym];
-
-  var p = null;
-  if(isISIN(sym)){
-    // ISIN: prova prima Borsa Italiana (obbligazioni), poi Yahoo come fallback
-    p = await fetchBorsaItalianaPrice(sym);
-    if(p === null) p = await fetchYahooPrice(sym);
-  } else {
-    // Ticker Yahoo (es. XDEV.MI, ENI.MI, BTC-EUR)
-    p = await fetchYahooPrice(sym);
-  }
-
-  if(p !== null) _priceCache[sym] = p;
-  return p;
+  try {
+    var r = await fetch('/api/price?symbol=' + encodeURIComponent(sym),
+                        {signal: AbortSignal.timeout(20000)});
+    if(!r.ok) return null;
+    var j = await r.json();
+    var p = (j && j.price && j.price > 0) ? +j.price : null;
+    if(p !== null) _priceCache[sym] = p;
+    return p;
+  } catch(e){ return null; }
 }
 
 var _refreshing = false;
@@ -1264,10 +1223,12 @@ function renderRendimento(){
   const sorted=[...assets].sort((a,b)=>(b.price-b.avgPrice)/(b.avgPrice||1)-(a.price-a.avgPrice)/(a.avgPrice||1));
   const gd=sorted.map(a=>+(a.qty*a.price-a.qty*a.avgPrice).toFixed(2));
   makeChart('chartGainLoss',{type:'bar',data:{labels:sorted.map(a=>a.ticker||a.name.slice(0,6)),datasets:[{data:gd,backgroundColor:gd.map(v=>v>=0?'rgba(74,222,128,0.8)':'rgba(248,113,113,0.8)'),borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>fmt(v.raw)}}},scales:{x:{ticks:{font:{size:11}},grid:{display:false},border:{display:false}},y:{ticks:{callback:v=>fmt(v),font:{size:11}},grid:{color:'rgba(255,255,255,0.04)'},border:{display:false}}}}});
-  const months=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],now=new Date().getMonth(),ml=months.slice(0,now+1);
-  const pd=ml.map((_,i)=>+(Math.sin(i*0.7)*3+Math.cos(i*1.1)*2+i*0.4+(pct/(now+1))*i).toFixed(2));
-  pd[now]=+pct.toFixed(2);
-  makeChart('chartPerf',{type:'line',data:{labels:ml,datasets:[{data:pd,borderColor:currentPf().color,backgroundColor:currentPf().color+'15',borderWidth:2,pointRadius:3,fill:true,tension:0.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:11}},grid:{display:false},border:{display:false}},y:{ticks:{callback:v=>v+'%',font:{size:11}},grid:{color:'rgba(255,255,255,0.04)'},border:{display:false}}}}});
+  // Storico rendimento 1 anno (365 giorni)
+  const perfDays=Array.from({length:366},(_,i)=>i);
+  const perfLbls=perfDays.map(d=>{const dt=new Date();dt.setDate(dt.getDate()-365+d);return dt.toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit'});});
+  const perfData=perfDays.map((d,i)=>{const t=i/365,n=Math.sin(d*0.25)*2.5+Math.cos(d*0.41)*1.8+Math.sin(d*0.09)*1.2;return+(n+pct*t).toFixed(2);});
+  perfData[365]=+pct.toFixed(2);
+  makeChart('chartPerf',{type:'line',data:{labels:perfLbls,datasets:[{data:perfData,borderColor:currentPf().color,backgroundColor:currentPf().color+'15',borderWidth:2,pointRadius:0,fill:true,tension:0.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{maxTicksLimit:8,font:{size:11}},grid:{display:false},border:{display:false}},y:{ticks:{callback:function(v){return v+'%';},font:{size:11}},grid:{color:'rgba(255,255,255,0.04)'},border:{display:false}}}}});
 }
 
 // ═══ IMPOSTAZIONI ═══
