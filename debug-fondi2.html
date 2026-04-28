@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Debug Fondi via /api/price</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;background:#0f0f11;color:#f0ede8;}
+button{background:#c4b5fd22;border:1px solid #c4b5fd;color:#c4b5fd;padding:0.5rem 1.2rem;border-radius:8px;font-size:0.85rem;cursor:pointer;margin-bottom:1rem;}
+button:hover{background:#c4b5fd;color:#0f0f11;}
+pre{background:#18181c;border:1px solid #333;border-radius:8px;padding:1rem;font-size:0.72rem;overflow-x:auto;white-space:pre-wrap;word-break:break-all;max-height:400px;overflow-y:auto;}
+.ok{color:#4ade80;font-weight:600;} .fail{color:#f87171;font-weight:600;}
+p{font-size:0.83rem;margin:0.3rem 0;}
+</style>
+</head>
+<body>
+<h2 style="color:#c4b5fd;font-size:1.1rem;margin-bottom:0.5rem">Test /api/price con ISIN fondo</h2>
+<p style="color:#9896a0;font-size:0.82rem;margin-bottom:1rem">Testa l'ISIN LU3040324488 tramite la Netlify Function</p>
+<button onclick="run()">Testa LU3040324488</button>
+<div id="out"></div>
+<script>
+async function run(){
+  var out = document.getElementById('out');
+  out.innerHTML = '<p style="color:#9896a0">Chiamata in corso...</p>';
+  try {
+    var r = await fetch('/api/price?symbol=LU3040324488&debug=1', {signal: AbortSignal.timeout(25000)});
+    var text = await r.text();
+    out.innerHTML = '<p>HTTP: <span class="' + (r.ok?'ok':'fail') + '">' + r.status + '</span></p>'
+      + '<pre>' + text + '</pre>';
+  } catch(e){
+    out.innerHTML = '<p class="fail">Errore: ' + e.message + '</p>';
+  }
+}
+</script>
+</body>
+</html>
